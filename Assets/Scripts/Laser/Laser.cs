@@ -1,41 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    public Camera camera;
+    public Camera cam;
     public LineRenderer lineRenderer;
     public Transform firePoint;
     public GameObject startVFX;
     public GameObject endVFX;
     public float maxLaserLength = 10f; // Define the maximum length for the laser
     public SpriteRenderer gunSpriteRenderer; // Reference to the gun's SpriteRenderer
+    public float vibrationAmount = 0.05f;
+    public float vibrationSpeed = 25f;
 
-    private Quaternion rotation;
     private List<ParticleSystem> particles = new List<ParticleSystem>();
     private Vector3 initialFirePointPosition;
+    private Vector3 initialGunPosition;
+    private Transform gunTransform;
 
     // Start is called before the first frame update
     void Start()
     {
         FillLists();
         DisableLaser();
+
         initialFirePointPosition = firePoint.localPosition;
+
+        // Check if gunSpriteRenderer is assigned and set gunTransform and initialGunPosition
+        if (gunSpriteRenderer != null)
+        {
+            gunTransform = gunSpriteRenderer.gameObject.transform;
+            initialGunPosition = gunTransform.localPosition;
+        }
+        else
+        {
+            Debug.LogWarning("gunSpriteRenderer is not assigned in the Inspector.");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Fire1")) {
+        if (Input.GetButtonDown("Fire1")) {
             EnableLaser();
         }
 
-        if(Input.GetButton("Fire1")) {
+        if (Input.GetButton("Fire1")) {
             UpdateLaser();
         }
 
-        if(Input.GetButtonUp("Fire1")) {
+        if (Input.GetButtonUp("Fire1")) {
             DisableLaser();
         }
 
@@ -45,7 +61,7 @@ public class Laser : MonoBehaviour
     void EnableLaser() {
         lineRenderer.enabled = true;
 
-        for(int i =0; i <particles.Count; i++) {
+        for (int i = 0; i < particles.Count; i++) {
             particles[i].Play();
         }
     }
@@ -69,19 +85,30 @@ public class Laser : MonoBehaviour
         }
 
         endVFX.transform.position = lineRenderer.GetPosition(1);
+
+        // Vibrate gun while firing if gunTransform is assigned
+        if (gunTransform != null) {
+            float offsetX = Random.Range(-vibrationAmount, vibrationAmount);
+            gunTransform.localPosition = initialGunPosition + new Vector3(offsetX, 0, 0);
+        }
     }
 
     void DisableLaser() {
         lineRenderer.enabled = false;
 
-        for(int i =0; i <particles.Count; i++) {
+        for (int i = 0; i < particles.Count; i++) {
             particles[i].Stop();
+        }
+
+        // Stop vibrating gun and reset position if gunTransform is assigned
+        if (gunTransform != null) {
+            gunTransform.localPosition = initialGunPosition;
         }
     }
 
     void RotateToMouse()
     {
-        Vector2 mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = mousePosition - (Vector2)transform.position;
 
         // Calculate the angle and rotate the gun to point towards the mouse
@@ -94,22 +121,21 @@ public class Laser : MonoBehaviour
             gunSpriteRenderer.flipY = shouldFlip;
 
             // Update the firePoint position based on the flip state
-            firePoint.localPosition = shouldFlip ? new Vector3(initialFirePointPosition.x, -initialFirePointPosition.y, initialFirePointPosition.z)
-                                                 : initialFirePointPosition;
+            firePoint.localPosition = shouldFlip ? new Vector3(initialFirePointPosition.x, -initialFirePointPosition.y, initialFirePointPosition.z) : initialFirePointPosition;
         }
     }
 
     void FillLists() {
-        for(int i = 0; i <startVFX.transform.childCount; i++) {
+        for (int i = 0; i < startVFX.transform.childCount; i++) {
             var ps = startVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
-            if(ps != null) {
+            if (ps != null) {
                 particles.Add(ps);
             }
         }
 
-        for(int i = 0; i <endVFX.transform.childCount; i++) {
+        for (int i = 0; i < endVFX.transform.childCount; i++) {
             var ps = endVFX.transform.GetChild(i).GetComponent<ParticleSystem>();
-            if(ps != null) {
+            if (ps != null) {
                 particles.Add(ps);
             }
         }

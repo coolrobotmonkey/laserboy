@@ -277,15 +277,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 252582720}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.33252138, y: -0.16639546, z: -0.006455083}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1651811741}
   - {fileID: 492796269}
   - {fileID: 562103305}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1898241885}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &252582722
 MonoBehaviour:
@@ -306,6 +306,8 @@ MonoBehaviour:
   endVFX: {fileID: 1716971338}
   maxLaserLength: 10
   gunSpriteRenderer: {fileID: 1651811742}
+  vibrationAmount: 0.05
+  vibrationSpeed: 25
 --- !u!1 &265762975
 GameObject:
   m_ObjectHideFlags: 0
@@ -15657,7 +15659,6 @@ GameObject:
   - component: {fileID: 1898241883}
   - component: {fileID: 1898241886}
   - component: {fileID: 1898241887}
-  - component: {fileID: 1898241888}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -15756,7 +15757,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 252582721}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1898241886
@@ -15817,19 +15819,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
---- !u!114 &1898241888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1898241882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2195e97068735af4fa1946783e9d5cee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gun: {fileID: 252582720}
 --- !u!1 &1942534239
 GameObject:
   m_ObjectHideFlags: 0
@@ -20796,6 +20785,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 1898241885}
-  - {fileID: 252582721}
   - {fileID: 1601991648}
   - {fileID: 1420519469}
