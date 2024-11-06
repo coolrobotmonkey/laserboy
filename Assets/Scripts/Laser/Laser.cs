@@ -79,6 +79,13 @@ public class Laser : MonoBehaviour
 
         if (hit) {
             lineRenderer.SetPosition(1, hit.point);
+
+            // Shooting enemy
+            Enemy enemy = hit.collider.GetComponent<Enemy>();
+
+            if(enemy != null) {
+                enemy.TakeDamage();
+            }
         } else {
             Vector2 endPosition = (Vector2)firePoint.position + direction * maxLaserLength;
             lineRenderer.SetPosition(1, endPosition);
