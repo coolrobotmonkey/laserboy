@@ -20,6 +20,8 @@ public class Laser : MonoBehaviour
     private Vector3 initialGunPosition;
     private Transform gunTransform;
 
+    public int laserDamage = 1; // Damage the laser inflicts
+
     // Start is called before the first frame update
     void Start()
     {
@@ -84,7 +86,7 @@ public class Laser : MonoBehaviour
             Enemy enemy = hit.collider.GetComponent<Enemy>();
 
             if(enemy != null) {
-                enemy.TakeDamage();
+                enemy.TakeDamage(laserDamage);
             }
         } else {
             Vector2 endPosition = (Vector2)firePoint.position + direction * maxLaserLength;

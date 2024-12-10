@@ -1,63 +1,56 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed = 2f;          // Movement speed of the enemy
+    [Header("Enemy Stats")]
+    public float speed = 2f;
     public int hitPoints = 1000;
-    private SpriteRenderer spriteRenderer;
-    public Color originalColor;  // Original color of the enemy
-    public Color hitColor = Color.red;  // Color to change to when hit
-    public float colorChangeDuration = 0.1f;  // Duration of the color change effect
 
-    private Transform player;
-    private EnemySpawner enemySpawner;
+    [Header("Visual Feedback")]
+    public Color hitColor = Color.red;
+    public float colorChangeDuration = 0.1f;
 
-    private void Start()
+    protected Color originalColor;
+    protected SpriteRenderer spriteRenderer;
+    protected Transform player;
+    protected EnemySpawner enemySpawner;
+
+    protected virtual void Start()
     {
-        // Get the SpriteRenderer component and store the original color
+        // Initialize components and variables
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        if (playerObject != null)
-        {
-            player = playerObject.transform;
-        }
+
         enemySpawner = FindObjectOfType<EnemySpawner>();
     }
 
-    private void Update()
+    public virtual void TakeDamage(int damageAmount)
     {
-        if (player != null)
+        hitPoints -= damageAmount;
+
+        StartCoroutine(FlashColor());
+
+        if (hitPoints <= 0)
         {
-            // Calculate the direction from the enemy to the player
-            Vector3 direction = (player.position - transform.position).normalized;
-            
-            // Move the enemy towards the player
-            transform.position += direction * speed * Time.deltaTime;
+            Die();
         }
     }
 
-    public void TakeDamage() {
-        hitPoints -= 1;
-
-        StartCoroutine(FlashColour());
-
-        // Die if lost all hitpoints
-        if(hitPoints <= 0) {
-            Destroy(gameObject);
-
-            if(enemySpawner != null) {
-                enemySpawner.Respawn();
-            }
-        }
-    }
-
-    private IEnumerator FlashColour() {
+    protected virtual IEnumerator FlashColor()
+    {
         spriteRenderer.color = hitColor;
-
         yield return new WaitForSeconds(colorChangeDuration);
-
         spriteRenderer.color = originalColor;
+    }
+
+    protected virtual void Die()
+    {
+        Destroy(gameObject);
+
+        if (enemySpawner != null)
+        {
+            enemySpawner.Respawn();
+        }
     }
 }
