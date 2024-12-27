@@ -4,7 +4,7 @@ public class EnemyMoveTowardsPlayer : MonoBehaviour
 {
     [SerializeField] private float speed = 2f;
     private Vector3 movement;
-    private Transform player;
+    private Transform player; // Included in enemy abstract class in case you wanted to not have movement be separated
     private Animator anim;
 
     private void Start()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemySummoner : MonoBehaviour
+public class EnemySummoner : Enemy
 {
     [Header("Spawning Settings")]
     public GameObject enemyPrefab;        // The enemy prefab to spawn
@@ -11,12 +11,13 @@ public class EnemySummoner : MonoBehaviour
     [Header("Detection Settings")]
     public float detectionRange = 10f;    // Distance at which the enemy detects the player
 
-    private Transform player;             // Reference to the player
+    private Transform player;           
     private float lastSpawnTime;          // Tracks the last time enemies were spawned
     private int currentSpawnedEnemies;    // Tracks the current number of spawned enemies
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
 
         // Default spawn positions if none are specified
@@ -67,5 +68,15 @@ public class EnemySummoner : MonoBehaviour
     {
         // Decrement the counter when a spawned enemy is destroyed
         currentSpawnedEnemies = Mathf.Max(0, currentSpawnedEnemies - 1);
+    }
+
+    protected override void Die()
+    {
+        Destroy(gameObject);
+
+        if (enemySpawner != null)
+        {
+            enemySpawner.Respawn();
+        }
     }
 }

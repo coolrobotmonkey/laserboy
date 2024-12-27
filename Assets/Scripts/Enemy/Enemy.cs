@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
     [Header("Enemy Stats")]
-    public float speed = 2f;
-    public int hitPoints = 1000;
+    public float hitPoints = 1000;
+    public float damage = 10;
 
     [Header("Visual Feedback")]
     public Color hitColor = Color.red;
@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
 
     protected Color originalColor;
     protected SpriteRenderer spriteRenderer;
-    protected Transform player;
+    //protected Transform player;
     protected EnemySpawner enemySpawner;
 
     protected virtual void Start()
@@ -25,7 +25,19 @@ public class Enemy : MonoBehaviour
         enemySpawner = FindObjectOfType<EnemySpawner>();
     }
 
-    public virtual void TakeDamage(int damageAmount)
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            PlayerHealth playerHealth = collision.collider.GetComponent<PlayerHealth>();
+            if (playerHealth != null) // Conditional could be removed
+            {
+                playerHealth.TakeDamage(damage);
+            }
+        }
+    }
+
+    public virtual void TakeDamage(float damageAmount)
     {
         hitPoints -= damageAmount;
 
@@ -44,13 +56,5 @@ public class Enemy : MonoBehaviour
         spriteRenderer.color = originalColor;
     }
 
-    protected virtual void Die()
-    {
-        Destroy(gameObject);
-
-        if (enemySpawner != null)
-        {
-            enemySpawner.Respawn();
-        }
-    }
+    protected abstract void Die(); // Force derived classes to define their own death behavior
 }

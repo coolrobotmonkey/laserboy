@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ed4fa313e0b924488c2a8d1cca300dd, type: 3}
+  m_Name: Laser Gun
+  m_EditorClassIdentifier: 
+  <IsStackable>k__BackingField: 0
+  <MaxStackSize>k__BackingField: 1
+  <Name>k__BackingField: Laser Gun
+  <Description>k__BackingField: Type shyt
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 4ef6aa8414a22e54790ca6e85866ad9a, type: 3}
+  <DefaultParametersList>k__BackingField:
+  - itemParameter: {fileID: 11400000, guid: e0b9881d7f9f58b418fac3e295287bed, type: 2}
+    value: 100
+  <actionSFX>k__BackingField: {fileID: 8300000, guid: b7680f921bbf99245a146f07bcb70d43, type: 3}

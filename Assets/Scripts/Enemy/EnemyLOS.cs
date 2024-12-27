@@ -8,7 +8,7 @@ public class EnemyLOS : MonoBehaviour
     
     [Header("Movement Settings")]
     public float speed = 2f;                     // Movement speed of the enemy
-    private Transform player;
+    private Transform player;             // Included in enemy abstract class in case you wanted to not have movement be separated
     private Vector3 movement;
     Animator anim;
 

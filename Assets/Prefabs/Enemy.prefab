@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 837829136682227186}
   - component: {fileID: 6320551918624226669}
   - component: {fileID: 8765204843747843230}
-  - component: {fileID: 7540183295861861742}
   - component: {fileID: -598562862179300986}
+  - component: {fileID: 4098672268368067284}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -132,22 +132,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
---- !u!114 &7540183295861861742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5100164848716269535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b446271011dbe024c98c9bd2fefb9f39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  hitPoints: 500
-  hitColor: {r: 0.5471698, g: 0, b: 0, a: 1}
-  colorChangeDuration: 0.1
 --- !u!114 &-598562862179300986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,3 +145,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+--- !u!114 &4098672268368067284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5100164848716269535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d79c2867c6d67d4ea2833655b5e0335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoints: 1000
+  damage: 10
+  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  colorChangeDuration: 0.1

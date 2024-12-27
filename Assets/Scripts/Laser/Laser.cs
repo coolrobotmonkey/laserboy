@@ -20,7 +20,7 @@ public class Laser : MonoBehaviour
     private Vector3 initialGunPosition;
     private Transform gunTransform;
 
-    public int laserDamage = 1; // Damage the laser inflicts
+    public float laserDamage = 1; // Damage the laser inflicts per frame (P2W right now)
 
     // Start is called before the first frame update
     void Start()
